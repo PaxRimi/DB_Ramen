@@ -1,102 +1,113 @@
 
 var arrayDivs = document.querySelectorAll('#board div');
 var points = document.getElementById('points');
+var scoreBoard = document.getElementById('over');
+var scoreBoardPoints = document.getElementById('playerScore');
+var gameOverText = document.getElementById('gameOverText');
 
-function Furry() {
+function Goku() {
     this.x = 0;
     this.y = 0;
     this.direction = "right";
 }
 
-function Coin() {
+function Ramen() {
     this.x = Math.floor(Math.random() * 10);
     this.y = Math.floor(Math.random() * 10);
 }
 
 function Game() {
     this.board = arrayDivs;
-    this.furry = new Furry();
-    this.coin = new Coin();
+    this.goku = new Goku();
+    this.ramen = new Ramen();
     this.score = 0;
     this.index = function(x,y) {
         return x + (y * 10);
     };
-    this.showFurry = function() {
-        this.board[this.index(this.furry.x,this.furry.y)].classList.add('furry');
+    this.showGoku = function() {
+        this.board[this.index(this.goku.x,this.goku.y)].classList.add('goku');
 
     };
-    this.hideVisibleFurry = function () {
-        var previousFurry = document.querySelector('.furry');
-        previousFurry.classList.remove('furry');
+    this.hideVisibleGoku = function () {
+        var previousGoku = document.querySelector('.goku');
+        previousGoku.classList.remove('goku');
     };
-    this.showCoin = function () {
-        this.board[this.index(this.coin.x,this.coin.y) ].classList.add('coin');
+    this.showRamen = function () {
+        this.board[this.index(this.ramen.x,this.ramen.y) ].classList.add('ramen');
     };
     var self = this;
-    this.startGame = function(){ this.idSetInterval = setInterval(function () {self.moveFurry()}, 250);};
-    this.moveFurry = function(){
-        if(this.furry.direction === "right") {
-            this.furry.x += 1;
-            console.log(this.furry.x);
-        } else if ( this.furry.direction === "left" ) {
-            this.furry.x -= 1;
-            console.log(this.furry.x);
-        } else if ( this.furry.direction === "up") {
-            this.furry.y -= 1;
-            console.log(this.furry.y);
-        } else if ( this.furry.direction === "down") {
-            this.furry.y += 1;
-            console.log(this.furry.y);
+    this.startGame = function(){ this.idSetInterval = setInterval(function () {self.moveGoku()}, 250);};
+    this.moveGoku = function(){
+        if(this.goku.direction === "right") {
+            this.goku.x += 1;
+        } else if ( this.goku.direction === "left" ) {
+            this.goku.x -= 1;
+        } else if ( this.goku.direction === "up") {
+            this.goku.y -= 1;
+        } else if ( this.goku.direction === "down") {
+            this.goku.y += 1;
         }
-        this.hideVisibleFurry();
+        this.hideVisibleGoku();
         this.gameOver();
-        this.showFurry();
-        this.checkCoinCollision();
+        this.showGoku();
+        this.checkRamenCollision();
     };
 
-    this.turnFurry = function (event) {
+    this.turnGoku = function (event) {
         switch (event.which) {
             case 37:
-                this.furry.direction = "left";
+                this.goku.direction = "left";
                 break;
             case 38:
-                this.furry.direction = "up";
+                this.goku.direction = "up";
                 break;
             case 39:
-                this.furry.direction = "right";
+                this.goku.direction = "right";
                 break;
             case 40:
-                this.furry.direction = "down";
+                this.goku.direction = "down";
                 break;
         }
     };
-    this.checkCoinCollision = function () {
-        if (this.furry.x === this.coin.x && this.furry.y === this.coin.y) {
-            this.board[this.index(this.coin.x,this.coin.y) ].classList.remove('coin')
+    this.checkRamenCollision = function () {
+        if (this.goku.x === this.ramen.x && this.goku.y === this.ramen.y) {
+            this.board[this.index(this.ramen.x,this.ramen.y) ].classList.remove('ramen');
             this.score += 1;
             points.innerText = this.score;
-            this.coin = new Coin();
-            this.showCoin();
+            this.ramen = new Ramen();
+            this.showRamen();
         }
     };
     this.gameOver = function(){
-        if (this.furry.x < 0 || this.furry.x > 9 || this.furry.y < 0 || this.furry.y > 9) {
+        if (this.goku.x < 0 || this.goku.x > 9 || this.goku.y < 0 || this.goku.y > 9) {
             clearInterval(this.idSetInterval);
-            alert("Koniec Gry");
-            this.hideVisibleFurry();
+            this.gameOverBoard();
+            this.hideVisibleGoku();
         }
 
+    };
+    this.gameOverBoard = function () {
+        scoreBoardPoints.innerText = this.score;
+        scoreBoard.classList.remove('invisible');
+        if (this.score <= 5) {
+            gameOverText.innerText = "Goku is still hungry, try better next time!";
+        } else if (this.score <= 10) {
+            gameOverText.innerText = "Goku is almost full,  but still is not happy from your work...";
+        } else if (this.score > 10 ) {
+            gameOverText.innerText = "Goku is full and happy, You Work Great!";
+        }
     }
 }
 
 
+
 var newgame = new Game();
 
-newgame.showFurry();
-newgame.showCoin();
+newgame.showGoku();
+newgame.showRamen();
 newgame.startGame();
 
 document.addEventListener('keydown', function(event){
-    newgame.turnFurry(event);
+    newgame.turnGoku(event);
 });
 
