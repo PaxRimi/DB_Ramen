@@ -4,6 +4,7 @@ var points = document.getElementById('points');
 var scoreBoard = document.getElementById('over');
 var scoreBoardPoints = document.getElementById('playerScore');
 var gameOverText = document.getElementById('gameOverText');
+var start = document.getElementById('start');
 
 function Goku() {
     this.x = 0;
@@ -105,7 +106,10 @@ var newgame = new Game();
 
 newgame.showGoku();
 newgame.showRamen();
-newgame.startGame();
+
+start.addEventListener('click', function () {
+    newgame.startGame();
+});
 
 document.addEventListener('keydown', function(event){
     newgame.turnGoku(event);
