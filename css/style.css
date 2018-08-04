@@ -3,14 +3,40 @@
 }
 
 body {
+    width: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: space-around;
 }
 
 section#score {
   width: 100%;
 }
 
+.leftSide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.start{
+  background-color: rgba(211,211,211, 0.75);
+  border: 1px solid black;
+  font-size: 20px;
+  text-transform: uppercase;
+  width: 10em;
+  height: 3em;
+  text-align: center;
+  line-height: 3em;
+  cursor: pointer;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 #board {
   width: 640px;
   height: 640px;
