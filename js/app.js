@@ -5,6 +5,7 @@ var scoreBoard = document.getElementById('over');
 var scoreBoardPoints = document.getElementById('playerScore');
 var gameOverText = document.getElementById('gameOverText');
 var start = document.getElementById('start');
+var closeGameOverBoard = document.getElementById('close');
 
 function Goku() {
     this.x = 0;
@@ -36,8 +37,12 @@ function Game() {
     this.showRamen = function () {
         this.board[this.index(this.ramen.x,this.ramen.y) ].classList.add('ramen');
     };
+    this.hideRamen = function () {
+        var lastRamen = document.querySelector('.ramen');
+        lastRamen.classList.remove('ramen');
+    };
     var self = this;
-    this.startGame = function(){ this.idSetInterval = setInterval(function () {self.moveGoku()}, 250);};
+    this.startGame = function(){ self.idSetInterval = setInterval(function () {self.moveGoku()}, 250);};
     this.moveGoku = function(){
         if(this.goku.direction === "right") {
             this.goku.x += 1;
@@ -81,7 +86,7 @@ function Game() {
     };
     this.gameOver = function(){
         if (this.goku.x < 0 || this.goku.x > 9 || this.goku.y < 0 || this.goku.y > 9) {
-            clearInterval(this.idSetInterval);
+            clearInterval(self.idSetInterval);
             this.gameOverBoard();
             this.hideVisibleGoku();
         }
@@ -90,6 +95,7 @@ function Game() {
     this.gameOverBoard = function () {
         scoreBoardPoints.innerText = this.score;
         scoreBoard.classList.remove('invisible');
+        this.hideRamen();
         if (this.score <= 5) {
             gameOverText.innerText = "Goku is still hungry, try better next time!";
         } else if (this.score <= 10) {
@@ -97,21 +103,24 @@ function Game() {
         } else if (this.score > 10 ) {
             gameOverText.innerText = "Goku is full and happy, You Work Great!";
         }
+        points.innerText = "0";
     }
 }
 
 
 
-var newgame = new Game();
-
-newgame.showGoku();
-newgame.showRamen();
 
 start.addEventListener('click', function () {
+    var newgame = new Game();
     newgame.startGame();
+    newgame.showGoku();
+    newgame.showRamen();
+    document.addEventListener('keydown', function(event){
+        newgame.turnGoku(event);
+    });
 });
 
-document.addEventListener('keydown', function(event){
-    newgame.turnGoku(event);
-});
 
+closeGameOverBoard.addEventListener('click', function () {
+   scoreBoard.classList.add('invisible');
+});
