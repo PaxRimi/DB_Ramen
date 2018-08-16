@@ -6,3 +6,6 @@ Good luck!
 
 Play here:
 https://paxrimi.github.io/DB_Ramen-game/
+
+
+My first time when I used webpack to create short and hard to read javascript file.
