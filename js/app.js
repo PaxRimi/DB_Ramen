@@ -1,11 +1,11 @@
 
-var arrayDivs = document.querySelectorAll('#board div');
-var points = document.getElementById('points');
-var scoreBoard = document.getElementById('over');
-var scoreBoardPoints = document.getElementById('playerScore');
-var gameOverText = document.getElementById('gameOverText');
-var start = document.getElementById('start');
-var closeGameOverBoard = document.getElementById('close');
+const arrayDivs = document.querySelectorAll('#board div');
+const points = document.getElementById('points');
+const scoreBoard = document.getElementById('over');
+const scoreBoardPoints = document.getElementById('playerScore');
+const gameOverText = document.getElementById('gameOverText');
+const start = document.getElementById('start');
+const closeGameOverBoard = document.getElementById('close');
 
 function Goku() {
     this.x = 0;
@@ -31,17 +31,17 @@ function Game() {
 
     };
     this.hideVisibleGoku = function () {
-        var previousGoku = document.querySelector('.goku');
+        let previousGoku = document.querySelector('.goku');
         previousGoku.classList.remove('goku');
     };
     this.showRamen = function () {
         this.board[this.index(this.ramen.x,this.ramen.y) ].classList.add('ramen');
     };
     this.hideRamen = function () {
-        var lastRamen = document.querySelector('.ramen');
+        let lastRamen = document.querySelector('.ramen');
         lastRamen.classList.remove('ramen');
     };
-    var self = this;
+    const self = this;
     this.startGame = function(){ self.idSetInterval = setInterval(function () {self.moveGoku()}, 250);};
     this.moveGoku = function(){
         if(this.goku.direction === "right") {
@@ -111,7 +111,7 @@ function Game() {
 
 
 start.addEventListener('click', function () {
-    var newgame = new Game();
+    const newgame = new Game();
     newgame.startGame();
     newgame.showGoku();
     newgame.showRamen();
