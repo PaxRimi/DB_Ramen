@@ -4,6 +4,11 @@ a simple game where you collect a bowl of ramen by hungry goku. Try catch more t
 Use arrows to move. 
 Good luck! 
 
+Technology used:
+-HTML
+-CSS
+-Javascript
+
 Play here:
 https://paxrimi.github.io/DB_Ramen-game/
 
